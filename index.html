@@ -13,8 +13,9 @@
         font-family: 'Noto Sans KR', sans-serif;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
+        overflow-x: hidden; /* Prevent horizontal scroll from animations */
         min-height: 100vh;
+        background-color: #000;
       }
       /* Custom scrollbar for better aesthetics */
       ::-webkit-scrollbar {
@@ -29,6 +30,43 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Optimized CSS Animations for Background */
+      .blob-anim-1 {
+        animation: float1 20s infinite linear;
+      }
+      .blob-anim-2 {
+        animation: float2 25s infinite linear;
+      }
+      .blob-anim-3 {
+        animation: float3 18s infinite linear;
+      }
+
+      @keyframes float1 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(100px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.95); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+
+      @keyframes float2 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(-80px, 80px) scale(1.2); }
+        66% { transform: translate(50px, -50px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+
+      @keyframes float3 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        50% { transform: translate(50px, 50px) scale(1.1); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+
+      /* Hardware acceleration utility */
+      .gpu-accelerated {
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
       }
     </style>
 <script type="importmap">

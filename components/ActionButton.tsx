@@ -19,7 +19,9 @@ const ActionButton: React.FC<ActionButtonProps> = ({ icon: Icon, label, onClick,
       whileHover={{ scale: 1.05, y: -2 }}
       whileTap={{ scale: 0.95, y: 0 }}
       onClick={onClick}
-      className={`group relative flex flex-col items-center justify-center w-full h-36 sm:h-44 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden transition-all duration-300 ${colorClass}`}
+      // Performance: Removed 'backdrop-blur-md' to avoid stacked blurs.
+      // The parent GlassCard already handles the blur, so we just use semi-transparent bg-white/5.
+      className={`group relative flex flex-col items-center justify-center w-full h-36 sm:h-44 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-all duration-300 ${colorClass}`}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
@@ -33,7 +35,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({ icon: Icon, label, onClick,
       </div>
       
       {/* Shine effect */}
-      <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
+      <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine pointer-events-none" />
     </motion.button>
   );
 };

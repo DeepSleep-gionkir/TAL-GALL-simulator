@@ -144,7 +144,7 @@ const App: React.FC = () => {
         </GlassCard>
 
         <footer className="mt-24 text-white/30 text-sm font-light">
-            © 2024 Tal-Gal Simulator. All choices are yours.
+            © 2025 Tal-Gal Simulator. All choices are yours.
         </footer>
       </main>
 
