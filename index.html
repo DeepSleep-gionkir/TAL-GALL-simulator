@@ -4,11 +4,86 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>탈갤 시뮬레이터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-  </head>
-  <body style="margin: 0; padding: 0; min-height: 100vh; background: linear-gradient(135deg, #0f172a 0%, #3b0764 50%, #000000 100%); color: white;">
+    <style>
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        min-height: 100vh;
+        background-color: #000;
+      }
+      /* Custom scrollbar for better aesthetics */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Optimized CSS Animations for Background */
+      .blob-anim-1 {
+        animation: float1 20s infinite linear;
+      }
+      .blob-anim-2 {
+        animation: float2 25s infinite linear;
+      }
+      .blob-anim-3 {
+        animation: float3 18s infinite linear;
+      }
+
+      @keyframes float1 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(100px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.95); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+
+      @keyframes float2 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(-80px, 80px) scale(1.2); }
+        66% { transform: translate(50px, -50px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+
+      @keyframes float3 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        50% { transform: translate(50px, 50px) scale(1.1); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+
+      /* Hardware acceleration utility */
+      .gpu-accelerated {
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+  }
+}
+</script>
+</head>
+  <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
