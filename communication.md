@@ -1,26 +1,15 @@
-# Vercel 배포 시 흰 화면(White Screen) 해결 리포트
+# Vercel 배포 문제 해결 리포트
 
-## 1. 문제 원인 분석
-현재 프로젝트는 **React**와 **TypeScript(.tsx)**로 작성되어 있습니다. 
-웹 브라우저는 `.tsx` 파일이나 JSX 문법(예: `<App />`)을 직접 해석할 수 없습니다. 
-로컬 개발 환경에서는 보통 도구가 이를 변환해주지만, Vercel에 단순히 파일만 업로드할 경우 브라우저가 코드를 이해하지 못해 아무것도 렌더링되지 않는 흰 화면이 발생합니다.
+## 1. 초기 문제: 흰 화면(White Screen)
+**원인**: 브라우저는 `.tsx` 파일(React+TypeScript)을 직접 실행할 수 없습니다. 로컬에서는 개발 서버가 변환해주지만, 배포 시에는 빌드(Build) 과정이 필요했습니다.
+**해결**: `vite`, `package.json`, `tsconfig.json` 등을 추가하여 표준 빌드 시스템을 구축했습니다.
 
-## 2. 해결 방안
-Vercel이 배포 과정에서 코드를 브라우저가 이해할 수 있는 JavaScript로 변환(Build)할 수 있도록 **표준 빌드 시스템(Vite)**을 도입해야 합니다.
+## 2. 추가 문제: 의존성 충돌(npm ERESOLVE Error)
+**원인**: `lucide-react` 라이브러리와 `react` 라이브러리 간의 버전 호환성 문제(Peer Dependency Conflict)가 발생했습니다. 서로 다른 버전의 React를 요구하거나, 버전 명시가 꼬이면서 설치가 중단되었습니다.
+**해결**:
+1. **버전 통일**: `package.json`에서 `react`, `react-dom`, `lucide-react`를 최신 안정화 버전(React 18.3.1, Lucide 0.468.0)으로 명시했습니다.
+2. **강제 오버라이드(Overrides)**: `package.json`에 `overrides` 설정을 추가하여, 프로젝트 내 모든 라이브러리가 강제로 동일한 버전의 React를 사용하도록 설정했습니다. 이로써 충돌을 원천 차단했습니다.
+3. **Importmap 제거**: 빌드 시스템(Vite)과 충돌할 수 있는 `index.html` 내의 CDN 설정(`importmap`)을 제거하여 빌드 안정성을 높였습니다.
 
-## 3. 적용된 변경 사항
-프로젝트가 Vercel에서 올바르게 인식되고 빌드되도록 다음 파일들을 생성 및 수정했습니다.
-
-- **`package.json`**: 프로젝트가 사용하는 라이브러리(React, Framer Motion 등)를 명시하고, Vercel이 실행할 `build` 명령어를 정의했습니다.
-- **`vite.config.ts`**: TypeScript와 React 코드를 번들링하기 위한 설정 파일입니다.
-- **`tsconfig.json`**: TypeScript 컴파일러 설정입니다.
-- **`index.html`**: React 앱의 진입점(`index.tsx`)을 연결하는 코드를 추가했습니다.
-
-## 4. 사용자 조치 사항
-이 파일들이 포함된 상태로 다시 배포(Commit & Push)를 진행해 주세요.
-Vercel이 자동으로 변경 사항을 감지하여 다음과 같은 과정을 수행할 것입니다:
-1. `Installing dependencies...` (라이브러리 설치)
-2. `Running build...` (코드 변환)
-3. `Deployment complete` (배포 완료)
-
-이제 웹사이트가 아름답게 표시될 것입니다.
+## 3. 사용자 조치 사항
+업데이트된 파일들을 다시 배포(Commit & Push)해 주세요. Vercel이 이제 오류 없이 의존성을 설치하고 빌드를 완료할 것입니다.
