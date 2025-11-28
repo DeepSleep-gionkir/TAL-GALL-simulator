@@ -75,13 +75,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center p-4 sm:p-8">
+    <div className="relative min-h-screen w-full flex items-center justify-center py-16 px-4 sm:py-20 sm:px-8">
       <Background />
       
       <main className="w-full max-w-2xl mx-auto z-10 flex flex-col items-center">
         
         {/* Header Section */}
-        <div className="text-center mb-12 space-y-2">
+        <div className="text-center mb-16 space-y-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4">
                  <Sparkles size={14} className="text-purple-300" />
                  <span className="text-xs font-medium text-purple-200 uppercase tracking-widest">Simulator v1.1</span>
@@ -89,7 +89,7 @@ const App: React.FC = () => {
             <h1 className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50 tracking-tight drop-shadow-2xl">
             탈갤 시뮬레이터
             </h1>
-            <p className="text-lg text-white/60 font-light max-w-md mx-auto">
+            <p className="text-lg text-white/60 font-light max-w-md mx-auto leading-relaxed">
             망설이지 말고 선택하세요. <br className="hidden sm:block"/>
             당신의 다음 행동이 운명을 결정합니다.
             </p>
@@ -143,7 +143,7 @@ const App: React.FC = () => {
             </div>
         </GlassCard>
 
-        <footer className="mt-16 text-white/30 text-sm font-light">
+        <footer className="mt-24 text-white/30 text-sm font-light">
             © 2024 Tal-Gal Simulator. All choices are yours.
         </footer>
       </main>
