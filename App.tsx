@@ -4,10 +4,13 @@ import Background from './components/Background';
 import GlassCard from './components/GlassCard';
 import ActionButton from './components/ActionButton';
 import Notification from './components/Notification';
+import WelcomeModal from './components/WelcomeModal';
 import { NotificationState, ActionType } from './types';
 
 const App: React.FC = () => {
   const [notification, setNotification] = useState<NotificationState | null>(null);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [clickCount, setClickCount] = useState(0);
   const timeoutRef = useRef<number | null>(null);
 
   const showNotification = useCallback((message: string, subMessage: string, type: NotificationState['type']) => {
@@ -28,6 +31,9 @@ const App: React.FC = () => {
   }, []);
 
   const handleAction = (action: ActionType) => {
+    // Increment click count for the hidden easter egg
+    setClickCount(prev => prev + 1);
+
     switch (action) {
       case ActionType.LEAVE:
         showNotification(
@@ -78,6 +84,8 @@ const App: React.FC = () => {
     <div className="relative min-h-screen w-full flex items-center justify-center py-16 px-4 sm:py-20 sm:px-8">
       <Background />
       
+      {showWelcome && <WelcomeModal onClose={() => setShowWelcome(false)} />}
+
       <main className="w-full max-w-2xl mx-auto z-10 flex flex-col items-center">
         
         {/* Header Section */}
@@ -89,9 +97,19 @@ const App: React.FC = () => {
             <h1 className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50 tracking-tight drop-shadow-2xl">
             탈갤 시뮬레이터
             </h1>
-            <p className="text-lg text-white/60 font-light max-w-md mx-auto leading-relaxed">
-            망설이지 말고 선택하세요. <br className="hidden sm:block"/>
-            당신의 다음 행동이 운명을 결정합니다.
+            
+            <p className="text-lg text-white/60 font-light max-w-md mx-auto leading-relaxed transition-all duration-500">
+              {clickCount >= 4 ? (
+                <>
+                  뭐 대단한 기능이 있을 줄 알았나요? <br className="hidden sm:block"/>
+                  에휴..
+                </>
+              ) : (
+                <>
+                  망설이지 말고 선택하세요. <br className="hidden sm:block"/>
+                  당신의 다음 행동이 운명을 결정합니다.
+                </>
+              )}
             </p>
         </div>
 
